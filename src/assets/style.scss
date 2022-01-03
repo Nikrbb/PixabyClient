@@ -1,0 +1,57 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+
+  .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    .card {
+      max-width: 400px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      position: relative;
+
+      &__image {
+        max-height: 300px;
+
+        & img {
+          max-width: 100%;
+          height: 50%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+
+      &__likes {
+      }
+
+      &__comments {
+      }
+
+      &__tags {
+        border-top: 1px solid #ccc;
+        text-align: left;
+        padding: 12px;
+
+        &-item {
+          display: inline-block;
+          padding: 5px 10px;
+          border-radius: 15px;
+          background: #8df7ff;
+          border: 1px solid #579ba0;
+          width: fit-content;
+          margin-right: 5px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}
