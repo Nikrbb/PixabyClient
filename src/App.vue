@@ -10,11 +10,6 @@ export default {
   components: {
     CatsList
   },
-  computed: {
-    cards() {
-      return this.$store.getters.getJson
-    }
-  },
    created() {
     this.$store.dispatch(`loadJson`)
   },

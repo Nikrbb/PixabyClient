@@ -6,6 +6,19 @@
   color: #2c3e50;
   margin-top: 60px;
 
+  .sort {
+  }
+
+  .filter {
+    margin-left: 30px;
+    display: inline-block;
+    margin-bottom: 20px;
+
+    &__tags {
+      // padding: 5px;
+    }
+  }
+
   .container {
     max-width: 1320px;
     margin: 0 auto;
@@ -43,7 +56,7 @@
 
         &-item {
           display: inline-block;
-          padding: 5px 10px;
+          padding: 3px 5px;
           border-radius: 15px;
           background: #8df7ff;
           border: 1px solid #579ba0;
