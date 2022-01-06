@@ -1,3 +1,8 @@
+body {
+  background-image: url(./bgc.jpg);
+  // background-size: contain;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -6,7 +11,36 @@
   color: #2c3e50;
   margin-top: 60px;
 
+  .sort-label {
+    position: relative;
+    font-size: 20px;
+    color: rgb(255, 250, 250);
+    padding: 0 10px;
+    border-radius: 2px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      background: rgba(0, 0, 0, 0.377);
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: -1;
+    }
+  }
   .sort {
+    font-size: 18px;
+    background: rgba(0, 0, 0, 0.377);
+    color: white;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 2px 0 1px;
+    &__item {
+      text-align: center;
+    }
   }
 
   .filter {
@@ -15,7 +49,10 @@
     margin-bottom: 20px;
 
     &__tags {
-      // padding: 5px;
+      font-size: 18px;
+      background-color: rgba(255, 255, 255, 0.675);
+      border: 1px solid rgba(255, 255, 255, 0.432);
+      color: #414141;
     }
   }
 
@@ -28,36 +65,62 @@
 
     .card {
       max-width: 400px;
-      padding: 12px;
+      padding: 12px 12px 0;
       border: 1px solid #ccc;
       position: relative;
+      background-color: #fefff8ec;
+      border-radius: 5px;
 
       &__image {
-        max-height: 300px;
+        display: block;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 5px;
 
         & img {
           max-width: 100%;
-          height: 50%;
+          height: 100%;
           width: 100%;
           object-fit: cover;
         }
       }
+      &__social {
+        display: flex;
+        justify-content: space-between;
 
-      &__likes {
-      }
+        &_likes {
+          margin-top: 20px;
 
-      &__comments {
+          .likes {
+            margin: 0 10px 0 5px;
+            color: #595b5c;
+            height: 10px;
+            font-size: 20px;
+          }
+        }
+
+        &_comments {
+          margin-top: 20px;
+
+          .comments {
+            margin: 0 5px 0 10px;
+            color: #595b5c;
+            height: 10px;
+            font-size: 20px;
+          }
+        }
       }
 
       &__tags {
         border-top: 1px solid #ccc;
         text-align: left;
-        padding: 12px;
+        padding: 5px 12px 0;
+        margin: 10px -12px;
 
         &-item {
           display: inline-block;
           padding: 3px 5px;
-          border-radius: 15px;
+          border-radius: 7px;
           background: #8df7ff;
           border: 1px solid #579ba0;
           width: fit-content;

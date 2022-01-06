@@ -1,26 +1,27 @@
 <template>
-     <select v-model="selected" @change="filterJson" name="option" class="sort" >
-        <option class="sort__item" value="">None</option>
-        <option class="sort__item"  value="Likes">Likes</option>
-        <option class="sort__item" value="Comments">Comments</option>
-    </select>
-    <span>Выбрано {{ selected }}</span>
+<label class="sort-label" for="sort">sort</label>
+<select v-model="selected" @change="sortJson" name="option" class="sort" id="sort">
+    <option class="sort__item" value="">-</option>
+    <option class="sort__item"  value="Likes">Likes</option>
+    <option class="sort__item" value="Comments">Comments</option>
+</select>
 <div class="filter">
-    <input type="text" placeholder="tags filter" class="filter__tags">
+    <input @keyup="debouncedHandler"  type="text" placeholder="filter" class="filter__tags">
 </div>
 
 <div  class="container">
-  <div  class="card" v-for="card in cards" :key="card.id">
+  <div class="card"  v-for="card in cards" :key="card.id">
         <a v-bind:href="card.pageURL" target="_blank" class="card__image">
-        <img v-bind:src="card.largeImageURL" alt="random-picture">
+            <img v-bind:src="card.largeImageURL" alt="random-picture">
         </a>
-        <div class="card__likes">{{ card.likes + ` likes`}}</div>
-        <div class="card__comments">{{ card.comments + ` comments`}}</div>
+        <div class="card__social">
+            <div class="card__social_likes"><i class="likes fas fa-thumbs-up"></i> {{ card.likes}}</div>
+            <div class="card__social_comments">{{ card.comments}}<i class="comments fas fa-comments"></i></div>
+        </div>
         <div class="card__tags">
-            <span @click="this.try" class="card__tags-item">{{ card.tags }}</span>
-            <span class="card__tags-item">{{ card.tags }}</span>
-            <span class="card__tags-item">{{ card.tags }}</span>
-            <span class="card__tags-item">{{ card.tags }}</span>
+            <span v-for="tag of this.tagsList(card)" :key="tag" class="card__tags-item">{{ tag }}</span>
+
+
     </div>
   </div>
 </div>
@@ -28,36 +29,56 @@
 
 
 <script>
+import {debounce} from 'lodash'
+
 
 export default {
+    
     name: 'CatsList',
         data() {
             return {
                 selected: '',
+                inputField: '',
             }
         },
     computed: {
         cards() {
-            return this.$store.getters.getJson;
+            let newArray = [];
+            if (this.inputField === '') return this.$store.getters.getJson; 
+            else {
+                for (let i of this.$store.getters.getJson) {
+                    if (i.tags.split(/,| /).find(word => word.trim() === this.inputField)) newArray.push(i)
+                };
+                return newArray
+            }
         },
         tags() {
             return this.$store.getters.getTags;
+        },
+        debouncedHandler() {
+            return debounce(this.handler, 300)
         }
-        
     },
     methods: {
 
-        try() {
-            console.log(this.tags);
+        handler (event) {
+            let value = event.target.value;
+            console.log(value);
+            this.inputField = value;
         },
 
-        filterJson() {
+        tagsList(arg) {
+            let cardTags = [];
+            for (let i of arg.tags.split(',')) {
+                cardTags.push(i.trim());
+            };
+            return cardTags
+        },
+
+        sortJson() {
             this.$store.dispatch(`loadJson`, this.selected)
         }
     },
-    async mounted() {
- 
-    }
 }
 </script>
 

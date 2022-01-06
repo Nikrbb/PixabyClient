@@ -24,7 +24,17 @@ export default createStore({
       state.catsJson = payload;
     },
     SET_TAGS(state, payload) {
-      state.tags = payload;
+      const tagsArr = []
+
+      for (let i of payload) {
+        let arr = i.tags.split(',')
+        for (let k of arr) {
+          if (!tagsArr.includes(k.trim())) {
+            tagsArr.push(k.trim())
+          }
+        }
+      }
+      state.tags = tagsArr;
     } 
   },
   actions: {
@@ -32,11 +42,11 @@ export default createStore({
     async loadJson({ commit }, value) {
       const errors = [];
       await axios
-        .get(`https://pixabay.com/api/?key=25040037-a12ad33d617bc126ab0283a57&q=cats&image_type=all&per_page=10`)
+        .get(`https://pixabay.com/api/?key=25040037-a12ad33d617bc126ab0283a57&q=cats&image_type=all&per_page=40`)
         .then(response => {
 
           
-          commit(`SET_TAGS`, response.data.hits.forEach(element => element.tags))
+          commit(`SET_TAGS`, response.data.hits)
 
 
           if (value === `Likes`) commit(`SET_JSON`, response.data.hits.sort((a, b) => b.likes - a.likes));
