@@ -21,29 +21,8 @@ export default createStore({
 
   mutations: {
     SET_JSON(state, payload) {
-  
-      // setTimeout(()=> {
-      //   console.log(state.catsJson);
-      // }, 5000)
-   
       state.catsJson = payload;
     },
-
-  
-    // SET_TAGS(state, payload) {
-    //   const tagsArr = []
-      
-    //   for (let i of payload) {
-    //     let arr = i.tags.split(',')
-    //     for (let k of arr) {
-    //       if (!tagsArr.includes(k.trim())) {
-    //         tagsArr.push(k.trim())
-    //       }
-    //     }
-    //   }
-    //   state.tags = tagsArr;
-    //   console.log(tagsArr);
-    // } 
   },
   actions: {
 
@@ -54,7 +33,7 @@ export default createStore({
         .then(response => {
 
           
-          
+          // commit(`SET_JSON`, response.data.hits)
           // commit(`SET_TAGS`, response.data.hits)
 
 
